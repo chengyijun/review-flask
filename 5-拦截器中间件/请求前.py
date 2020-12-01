@@ -13,14 +13,36 @@ app = Flask(__name__)
 
 
 @app.before_request
-def check_login():
-    print('检查是否登录。。。')
+def before1():
+    print('before1')
+
+
+@app.before_request
+def before2():
+    print('before2')
 
 
 @app.after_request
-def add_something(request):
-    print('请求之后 做点事')
-    return request
+def after1(respose):
+    print('after1')
+    return respose
+
+
+@app.after_request
+def after2(respose):
+    print('after2')
+    return respose
+
+
+"""
+拦截器执行结果：
+before1
+before2
+after2
+after1
+before是顺序执行的
+after 是倒序执行的
+"""
 
 
 @app.route('/index')
